@@ -1,0 +1,28 @@
+##  Tensorflow2.1 GPU installation and Pytorch1.3 GPU installation
+Refer to my previous blog post: [ Centos7 installs Tensorflow2.1 GPU and Pytorch1.3 GPU (CUDA10.1) ](https://blog.csdn.net/qq_37541097/article/details/103933366)
+ 
+ 
+##  Can the model weight trained by keras functional api and the model weight trained by subclassed be mixed [tensorflow2.0.0]
+It is strongly not recommended to mix them, even if the name structure of the two models is exactly the same, do not mix them, there are pitfalls in it, and the model trained by any method will be loaded with the corresponding model weight
+ 
+ 
+##  Cannot use model.summary() when using subclassed model [tensorflow2.0.0]
+The subclassed model does not automatically build when it is instantiated (it will only be built automatically when training starts). If you need to use the summary operation, you need to build it manually in advance
+model.build((batch_size, height, width, channel))
+ 
+ 
+##  Unable to use keras's plot_model(model, 'my_model.png') problem [tensorflow2.0.0]
+####  Under linux you need to install some packages:
+* pip install pydot==1.2.3
+* sudo apt-get install graphviz
+####  In windows, you also need to install some packages (windows is more troublesome):
+* pip install pydot==1.2.3
+* Install graphviz and add relevant environment variables
+Reference link: https://github.com/XifengGuo/CapsNet-Keras/issues/7
+ 
+##  Why do you need to call optimizer.zero_grad() every time you calculate a batch [Pytorch1.3]
+If the historical gradient is not cleared, the calculated historical gradient will be accumulated (through this feature, you can achieve training with a large batch value in disguise)
+Reference link: https://www.zhihu.com/question/303070254
+ 
+##  Pytorch1.3 ImportError: cannot import name 'PILLOW_VERSION' [Pytorch1.3]
+The version of pillow is too high, the installation version number is less than 7.0.0
